@@ -18,7 +18,9 @@ const props = defineProps({
   },
 })
 
-defineEmits(['click'])
+const emit = defineEmits<{
+  (event: 'click'): void
+}>()
 </script>
 
 <style scoped>

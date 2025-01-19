@@ -35,7 +35,10 @@ const props = withDefaults(defineProps<TableProps>(), {
   tableData: () => [],
 })
 
-defineEmits(['delete-item', 'update-item'])
+const emit = defineEmits<{
+  (event: 'delete-item', id: number): void
+  (event: 'update-item', id: number): void
+}>()
 </script>
 
 <style scoped>
