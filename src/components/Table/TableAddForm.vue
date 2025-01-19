@@ -1,38 +1,32 @@
 <template>
   <form @submit.prevent="handleSubmit" class="dark-form">
-    <div class="form-group">
-      <label for="fullName">ФИО:</label>
-      <input
-        type="text"
-        id="fullName"
-        v-model="formData.fullName"
-        placeholder="Введите ваше ФИО"
+    <UIFormGroup>
+      <UIInputText id="fullName" label="ФИО:" v-model="formData.fullName" required />
+    </UIFormGroup>
+
+    <UIFormGroup>
+      <UIRadioGroup
+        legend="Отделение:"
+        :options="DEPARTMENTS_RADIO_LIST"
+        v-model="formData.department"
         required
       />
-    </div>
+    </UIFormGroup>
 
-    <div class="form-group">
-      <label>Отделение:</label>
-      <div class="radio-group">
-        <label>
-          <input type="radio" v-model="formData.department" value="Хирургия" required />
-          Хирургия
-        </label>
-        <label>
-          <input type="radio" v-model="formData.department" value="Кардиология" required />
-          Кардиология
-        </label>
-      </div>
-    </div>
-
-    <button type="submit" class="submit-button">Отправить</button>
-    <AppButton type="button" @click="$emit('close')">Закрыть</AppButton>
+    <AppButton class="submit-button">Добавить</AppButton>
+    <AppButton :type="'button'" @click="$emit('close')">Закрыть</AppButton>
   </form>
 </template>
 
 <script setup lang="ts">
 import { type Ref, ref } from 'vue'
 import AppButton from '@/components/Common/AppButton.vue'
+import UIFormGroup from '@/components/UI/UIFormGroup.vue'
+import UIInputText from '@/components/UI/UIInputText.vue'
+import UIRadioGroup from '@/components/UI/UIRadioGroup.vue'
+import { useConstants } from '@/composables/useConstants.ts'
+
+const { DEPARTMENTS_RADIO_LIST } = useConstants()
 
 interface formData {
   fullName: string
@@ -56,6 +50,7 @@ const handleSubmit = () => {
 
 const emit = defineEmits<{
   (event: 'submit', data: { fullName: string; department: string }): void
+  (event: 'close'): void
 }>()
 </script>
 
@@ -69,11 +64,8 @@ const emit = defineEmits<{
   font-family: Arial, sans-serif;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
+.form-group label,
+legend {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;

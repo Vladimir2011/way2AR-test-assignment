@@ -1,39 +1,32 @@
 <template>
   <form @submit.prevent="handleSubmit" class="dark-form">
-    <span class="header-edit">Изменить данные</span>
-    <div class="form-group">
-      <label for="fullName">ФИО:</label>
-      <input
-        type="text"
-        id="fullName"
-        v-model="formData.fullName"
-        placeholder="Введите ваше ФИО"
+    <UIFormGroup>
+      <UIInputText id="fullName" label="ФИО:" v-model="formData.fullName" required />
+    </UIFormGroup>
+
+    <UIFormGroup>
+      <UIRadioGroup
+        legend="Отделение:"
+        :options="DEPARTMENTS_RADIO_LIST"
+        v-model="formData.department"
         required
       />
-    </div>
+    </UIFormGroup>
 
-    <div class="form-group">
-      <label>Отделение:</label>
-      <div class="radio-group">
-        <label>
-          <input type="radio" v-model="formData.department" value="Хирургия" required />
-          Хирургия
-        </label>
-        <label>
-          <input type="radio" v-model="formData.department" value="Кардиология" required />
-          Кардиология
-        </label>
-      </div>
-    </div>
-
-    <button type="submit" class="submit-button">Сохранить изменения</button>
-    <AppButton type="button" @click="$emit('close-by-click')">Закрыть</AppButton>
+    <AppButton class="submit-button">Сохранить</AppButton>
+    <AppButton :type="'button'" @click="$emit('close-by-click')">Закрыть</AppButton>
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import AppButton from '@/components/Common/AppButton.vue'
+import UIFormGroup from '@/components/UI/UIFormGroup.vue'
+import UIInputText from '@/components/UI/UIInputText.vue'
+import UIRadioGroup from '@/components/UI/UIRadioGroup.vue'
+import { useConstants } from '@/composables/useConstants.ts'
+
+const { DEPARTMENTS_RADIO_LIST } = useConstants()
 
 // Определяем событие, которое будет отправлять данные формы
 const emit = defineEmits<{

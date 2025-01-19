@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<TableItemProps>(), {
   index: 0,
 })
 
-defineEmits(['delete'])
+defineEmits(['delete', 'update'])
 </script>
 
 <style scoped>

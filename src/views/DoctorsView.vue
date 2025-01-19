@@ -2,7 +2,7 @@
   <UIContainer>
     <h1>Врачи</h1>
     <Table :tableData="doctors" @delete-item="removeDoctor" @update-item="editDoctor" />
-    <AppButton v-if="!isFormVisible" type="button" @click="toggleFormVisibility"
+    <AppButton v-if="!isFormVisible" :type="'button'" @click="toggleFormVisibility"
       >Добавить врача</AppButton
     >
     <TableAddForm v-else @close="toggleFormVisibility" @submit="addDoctor" />
