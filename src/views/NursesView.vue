@@ -1,7 +1,11 @@
 <template>
   <UIContainer>
     <h1>Медсестры</h1>
-    <Table :tableData="nurses" @delete-item="removeNurse" @update-item="editNurse" />
+    <Table
+      :tableData="nurses"
+      @delete-item="removeNurse($event)"
+      @update-item="editNurse($event)"
+    />
     <AppButton v-if="!isFormVisible" :type="'button'" @click="toggleFormVisibility"
       >Добавить медсестру</AppButton
     >
